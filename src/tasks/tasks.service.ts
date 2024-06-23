@@ -7,24 +7,40 @@ import {
 import { DataSource } from 'typeorm';
 import { Task } from './tasks.entity';
 import { UserDTO, UsersService } from './../users/users.service';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface CreateTask {
+export class CreateTask {
     ownerId: string;
+    @ApiProperty({example: "task title"})
     title: string;
-    description: string;
+    @ApiProperty({example: "task description (optional)"})
+    description?: string;
 }
 
-export interface UpdateTask extends CreateTask {
+export class UpdateTask extends CreateTask {
+    @ApiProperty({example: "caec9e6d-2598-4b69-abf6-d34f81852a24"})
     id: string;
+    @ApiProperty({example: true})
     isDone?: boolean;
 }
 
-export interface TaskDTO {
+export class TaskDTO {
+    @ApiProperty({example: "caec9e6d-2598-4b69-abf6-d34f81852a24"})
     id?: string;
+    @ApiProperty({example: "task title"})
     title: string;
+    @ApiProperty({example: "task description"})
     description: string;
+    @ApiProperty({example: false})
     isDone?: boolean;
+    @ApiProperty({example: "2024-06-22T23:45:11.941Z"})
     createDateTime?: Date;
+    @ApiProperty({
+        example: {
+            "id": "c9b99c0d-d74b-40dd-861d-23f9c96e2722",
+            "name": "maria"
+        }
+    })
     owner: UserDTO;
 }
 
